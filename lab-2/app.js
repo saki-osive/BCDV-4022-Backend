@@ -1,85 +1,61 @@
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const app = express();
-//
-// app.use(bodyParser.json());
-//
-// const tasksRouter = require('./tasks');
-//
-// app.use('tasks', tasksRouter);
-//
-// const PORT = process.env.PORT || 3000;
-//
-//
-// app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}`);
-// })
-
-
 const express = require('express');
 const bodyParser = require('body-parser');
 
-// Initialize express app
 const app = express();
 
-// Configure body-parser to parse JSON bodies
 app.use(bodyParser.json());
 
-// Create a router
+// In-memory data store
+const dataStore = {};
+
+// Router setup
 const router = express.Router();
 
-// Define a simple GET route
-router.get('/', (req, res) => {
-    res.json({ message: 'Hello Express!' });
+// GET route to fetch data
+router.get('/data/:id', (req, res) => {
+    const { id } = req.params;
+    const data = dataStore[id];
+    if (data) {
+        res.json({ data });
+    } else {
+        res.status(404).json({ message: 'Data not found' });
+    }
 });
 
-// Define a POST route
+// POST route to create data
 router.post('/data', (req, res) => {
-    // Access the JSON body sent with the request
-    const data = req.body;
-    // Do something with the data
-    // ...
-    // Respond with a success message
-    res.json({ message: 'Data received successfully', receivedData: data });
+    const { id, content } = req.body;
+    if (dataStore[id]) {
+        return res.status(409).json({ message: 'Data already exists' });
+    }
+    dataStore[id] = content;
+    res.status(201).json({ message: 'Data created', data: content });
 });
 
-
-
-// ...
-
-// PUT route for updating data
+// PUT route to update data
 router.put('/data/:id', (req, res) => {
-    // Access the path parameter
-    const id = req.params.id;
-    // Access the JSON body sent with the request
-    const newData = req.body;
-    // Perform the update operation
-    // For example, update the data in the database with the new data
-    // ...
-    // Respond with a success message
-    res.json({ message: 'Data updated successfully', updatedData: newData });
+    const { id } = req.params;
+    const { content } = req.body;
+    if (!dataStore[id]) {
+        return res.status(404).json({ message: 'Data not found' });
+    }
+    dataStore[id] = content;
+    res.json({ message: 'Data updated', data: content });
 });
 
-// DELETE route for deleting data
+// DELETE route to delete data
 router.delete('/data/:id', (req, res) => {
-    // Access the path parameter
-    const id = req.params.id;
-    // Perform the delete operation
-    // For example, delete the data from the database with the given id
-    // ...
-    // Respond with a success message
-    res.json({ message: 'Data deleted successfully', deletedId: id });
+    const { id } = req.params;
+    if (!dataStore[id]) {
+        return res.status(404).json({ message: 'Data not found' });
+    }
+    delete dataStore[id];
+    res.json({ message: 'Data deleted' });
 });
 
-
-
-
-
-// Use the router on a sub-path (e.g., "/api")
 app.use('/api', router);
 
-// Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
