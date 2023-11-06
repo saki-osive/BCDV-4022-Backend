@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "e95c2c5e-a2f3-446c-be67-2f2733d7d702",
+		"name": "Books Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25498926",
+		"_collection_link": "https://warped-resonance-763793.postman.co/workspace/My-Workspace~81ef5432-6443-4376-8eac-879d14d5d52b/collection/25498926-e95c2c5e-a2f3-446c-be67-2f2733d7d702?action=share&source=collection_link&creator=25498926"
+	},
+	"item": [
+		{
+			"name": "Get All Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Books",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 1,\n  \"title\": \"Sample Book\",\n  \"author\": \"John Doe\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
