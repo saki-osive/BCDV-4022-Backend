@@ -1,0 +1,53 @@
+{
+	"info": {
+		"_postman_id": "41b35f51-4954-49a0-b64a-ad34ef03f45f",
+		"name": "Passport",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25498926",
+		"_collection_link": "https://warped-resonance-763793.postman.co/workspace/My-Workspace~81ef5432-6443-4376-8eac-879d14d5d52b/collection/25498926-41b35f51-4954-49a0-b64a-ad34ef03f45f?action=share&source=collection_link&creator=25498926"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Protected Dashbord",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
