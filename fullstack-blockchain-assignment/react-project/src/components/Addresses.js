@@ -6,28 +6,34 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from "./Title";
 import {Link} from "react-router-dom";
-
-// Generate Order Data
-function createData(id, address) {
-    return { id, address };
-}
-
-const rows = [
-    createData(
-        0,
-        '0xb794f5ea0ba39494ce839613fffba74279579268',
-    ),
-    createData(
-        1,
-        '0xbe0eb53f46cd790cd13851d5eff43d12404d33e8',
-    ),
-    createData(
-        2,
-        '0xda9dfa130df4de4673b89022ee50ff26f6ea73cf',
-    ),
-];
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function Addresses() {
+
+    const [accounts, setAccounts] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/accounts');
+                setAccounts(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    // Generate Addresses Data Fetched from Ganache
+    function createData(id, address) {
+        return { id, address };
+    }
+
+    // Map over the fetched addresses and create rows
+    const rows = accounts.map((account, index) => createData(index, account));
+
     return (
         <React.Fragment >
             <Title>Blockchain Node Addresses</Title>
