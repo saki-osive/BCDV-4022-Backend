@@ -12,17 +12,17 @@ import { Link } from 'react-router-dom';
 
 export const mainListItems = (
     <React.Fragment>
-        <ListItemButton component={Link} to="/transactions">
-            <ListItemIcon>
-                <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Transactions" />
-        </ListItemButton>
         <ListItemButton component={Link} to="/addresses">
             <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
             <ListItemText primary="Addresses" />
+        </ListItemButton>
+        <ListItemButton component={Link} to="/transactions">
+            <ListItemIcon>
+                <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Transactions" />
         </ListItemButton>
         <ListItemButton component={Link} to="/wallet">
             <ListItemIcon>
